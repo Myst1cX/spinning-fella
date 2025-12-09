@@ -1,10 +1,19 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import { initSpinningFavicon } from './spinning-favicon.js';
 const TWEEN = require('@tweenjs/tween.js')
 
 const canvas = document.querySelector('#c');
 let camera, scene, renderer, controls, tpose, speen = false;
+
+// Initialize the spinning favicon with the dancer emoji
+const spinningFavicon = initSpinningFavicon({
+    character: '🕺',
+    fontSize: 48,
+    size: 64,
+    autoRotationSpeed: 0 // Set to 0 for manual control only
+});
 
 let secrets = {
     joschagay: {count: 0, enable: rainbow_en, disable: rainbow_dis},
@@ -123,6 +132,10 @@ function animate(time) {
 
     if (speen) {
         tpose.rotation.y += 0.1;
+        // Sync favicon rotation with the 3D character
+        spinningFavicon.setAutoRotationSpeed(0.1);
+    } else {
+        spinningFavicon.setAutoRotationSpeed(0);
     }
 
     TWEEN.update(time);
