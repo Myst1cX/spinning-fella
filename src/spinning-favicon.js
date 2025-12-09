@@ -13,6 +13,7 @@ export class SpinningFavicon {
         this.lastMouseX = 0;
         this.lastMouseY = 0;
         this.autoRotationSpeed = options.autoRotationSpeed || 0;
+        this.dragSensitivity = options.dragSensitivity || 0.02;
         
         this.canvas = document.createElement('canvas');
         this.canvas.width = this.size;
@@ -50,7 +51,7 @@ export class SpinningFavicon {
                 const deltaY = e.clientY - this.lastMouseY;
                 
                 // Calculate rotation based on mouse movement
-                this.rotation += (deltaX + deltaY) * 0.02;
+                this.rotation += (deltaX + deltaY) * this.dragSensitivity;
                 
                 this.lastMouseX = e.clientX;
                 this.lastMouseY = e.clientY;
@@ -75,7 +76,7 @@ export class SpinningFavicon {
                 const deltaX = e.touches[0].clientX - this.lastMouseX;
                 const deltaY = e.touches[0].clientY - this.lastMouseY;
                 
-                this.rotation += (deltaX + deltaY) * 0.02;
+                this.rotation += (deltaX + deltaY) * this.dragSensitivity;
                 
                 this.lastMouseX = e.touches[0].clientX;
                 this.lastMouseY = e.touches[0].clientY;

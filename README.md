@@ -27,7 +27,8 @@ const spinningFavicon = initSpinningFavicon({
     character: '🕺',  // Change this to any emoji or character
     fontSize: 48,      // Adjust the size of the character
     size: 64,          // Canvas size (should match favicon size)
-    autoRotationSpeed: 0  // Set to 0 for manual control only
+    autoRotationSpeed: 0,  // Set to 0 for manual control only
+    dragSensitivity: 0.02  // How fast it rotates when dragging (default: 0.02)
 });
 ```
 
