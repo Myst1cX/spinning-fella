@@ -1,11 +1,13 @@
 /**
  * Spinning Favicon Module
  * Creates an interactive favicon that spins based on mouse drag
+ * Supports static images, animated GIFs, and text/emoji characters
  */
 
 export class SpinningFavicon {
     constructor(options = {}) {
         this.size = options.size || 64;
+        this.imageUrl = options.imageUrl || null;
         this.character = options.character || '🕺';
         this.fontSize = options.fontSize || 48;
         this.rotation = 0;
@@ -14,11 +16,15 @@ export class SpinningFavicon {
         this.lastMouseY = 0;
         this.autoRotationSpeed = options.autoRotationSpeed || 0;
         this.dragSensitivity = options.dragSensitivity || 0.02;
+        this.imageScale = options.imageScale || 0.8;
         
         this.canvas = document.createElement('canvas');
         this.canvas.width = this.size;
         this.canvas.height = this.size;
         this.ctx = this.canvas.getContext('2d');
+        
+        this.image = null;
+        this.imageLoaded = false;
         
         this.faviconLink = document.querySelector('link[rel*="icon"]') || this.createFaviconLink();
         
@@ -34,6 +40,20 @@ export class SpinningFavicon {
     }
     
     init() {
+        // Load image if URL provided
+        if (this.imageUrl) {
+            this.image = new Image();
+            this.image.crossOrigin = 'anonymous';
+            this.image.onload = () => {
+                this.imageLoaded = true;
+            };
+            this.image.onerror = () => {
+                console.warn('Failed to load favicon image, falling back to character');
+                this.imageUrl = null;
+            };
+            this.image.src = this.imageUrl;
+        }
+        
         this.setupEventListeners();
         this.animate();
     }
@@ -101,11 +121,24 @@ export class SpinningFavicon {
         // Rotate
         this.ctx.rotate(this.rotation);
         
-        // Draw character
-        this.ctx.font = `${this.fontSize}px Arial`;
-        this.ctx.textAlign = 'center';
-        this.ctx.textBaseline = 'middle';
-        this.ctx.fillText(this.character, 0, 0);
+        // Draw image or character
+        if (this.imageUrl && this.imageLoaded && this.image) {
+            // Calculate dimensions to fit image in canvas while maintaining aspect ratio
+            const scaledSize = this.size * this.imageScale;
+            this.ctx.drawImage(
+                this.image,
+                -scaledSize / 2,
+                -scaledSize / 2,
+                scaledSize,
+                scaledSize
+            );
+        } else {
+            // Draw character (fallback)
+            this.ctx.font = `${this.fontSize}px Arial`;
+            this.ctx.textAlign = 'center';
+            this.ctx.textBaseline = 'middle';
+            this.ctx.fillText(this.character, 0, 0);
+        }
         
         // Restore context
         this.ctx.restore();
@@ -129,6 +162,24 @@ export class SpinningFavicon {
     
     setCharacter(character) {
         this.character = character;
+        this.imageUrl = null;
+        this.imageLoaded = false;
+    }
+    
+    setImage(imageUrl) {
+        this.imageUrl = imageUrl;
+        this.imageLoaded = false;
+        
+        this.image = new Image();
+        this.image.crossOrigin = 'anonymous';
+        this.image.onload = () => {
+            this.imageLoaded = true;
+        };
+        this.image.onerror = () => {
+            console.warn('Failed to load favicon image');
+            this.imageUrl = null;
+        };
+        this.image.src = imageUrl;
     }
     
     setAutoRotationSpeed(speed) {

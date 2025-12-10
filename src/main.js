@@ -7,11 +7,16 @@ const TWEEN = require('@tweenjs/tween.js')
 const canvas = document.querySelector('#c');
 let camera, scene, renderer, controls, tpose, speen = false;
 
-// Initialize the spinning favicon with the dancer emoji
+// Initialize the spinning favicon with an image
+// For Rick Astley dancing: add rickroll-dance.gif to public/assets/ folder
+// Example: imageUrl: 'assets/rickroll-dance.gif'
+// Using favicon.ico as default (you can replace with any GIF)
 const spinningFavicon = initSpinningFavicon({
-    character: '🕺',
+    imageUrl: 'favicon.ico', // Replace with 'assets/rickroll-dance.gif' once added
+    character: '🕺', // Fallback if image fails to load
     fontSize: 48,
     size: 64,
+    imageScale: 0.9, // Scale factor for the image
     autoRotationSpeed: 0 // Set to 0 for manual control only
 });
 
