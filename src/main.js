@@ -1,10 +1,24 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import { initSpinningFavicon } from './spinning-favicon.js';
 const TWEEN = require('@tweenjs/tween.js')
 
 const canvas = document.querySelector('#c');
 let camera, scene, renderer, controls, tpose, speen = false;
+
+// Initialize the spinning favicon with an image
+// For Rick Astley dancing: add rickroll-dance.gif to public/assets/ folder
+// Example: imageUrl: 'assets/rickroll-dance.gif'
+// Using favicon.ico as default (you can replace with any GIF)
+const spinningFavicon = initSpinningFavicon({
+    imageUrl: 'favicon.ico', // Replace with 'assets/rickroll-dance.gif' once added
+    character: '🕺', // Fallback if image fails to load
+    fontSize: 48,
+    size: 64,
+    imageScale: 0.9, // Scale factor for the image
+    autoRotationSpeed: 0 // Set to 0 for manual control only
+});
 
 let secrets = {
     joschagay: {count: 0, enable: rainbow_en, disable: rainbow_dis},
@@ -123,6 +137,10 @@ function animate(time) {
 
     if (speen) {
         tpose.rotation.y += 0.1;
+        // Sync favicon rotation with the 3D character
+        spinningFavicon.setAutoRotationSpeed(0.1);
+    } else {
+        spinningFavicon.setAutoRotationSpeed(0);
     }
 
     TWEEN.update(time);
