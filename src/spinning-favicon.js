@@ -164,6 +164,7 @@ export class SpinningFavicon {
         this.character = character;
         this.imageUrl = null;
         this.imageLoaded = false;
+        this.image = null; // Clean up image object for garbage collection
     }
     
     setImage(imageUrl) {

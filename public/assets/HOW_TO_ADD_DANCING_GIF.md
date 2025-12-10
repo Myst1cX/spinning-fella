@@ -57,6 +57,23 @@
 - Pixel art dancers
 - Custom animations
 
+## Licensing & Copyright
+
+**Important:** Make sure you have the right to use any GIF you download!
+
+### Free/Royalty-Free Sources:
+- **Giphy**: Most GIFs are free to use, but check the individual GIF's license
+- **Tenor**: Generally free for personal use
+- **Creative Commons**: Search for CC-licensed GIFs
+- **Make Your Own**: Create custom pixel art or animations
+
+### Fair Use Considerations:
+- Personal projects and portfolios: Generally okay
+- Commercial use: May require licensing
+- Parody/transformative use: May be protected
+
+**Recommendation:** For Rick Astley dancing or Fortnite emotes, using them in a personal portfolio site is typically considered fair use, but always verify for your specific use case.
+
 ## Example GIF URLs (for reference)
 
 Search these terms on Giphy/Tenor:
@@ -66,4 +83,4 @@ Search these terms on Giphy/Tenor:
 - "fortnite orange justice"
 - "dancing emoji"
 
-Remember to respect copyright and only use GIFs you have permission to use!
+**Always respect copyright and use GIFs responsibly!** When in doubt, create your own or use Creative Commons licensed content.
